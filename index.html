@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ECA Advent Calendar – Engineering Critical Assessment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-gradient-start: #050915;
+      --bg-gradient-end: #162447;
+      --accent: #ff9f43;
+      --accent-soft: rgba(255, 159, 67, 0.2);
+      --accent-strong: #ff7b00;
+      --card-bg: rgba(10, 15, 35, 0.96);
+      --card-border: rgba(255, 255, 255, 0.06);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --danger: #ef4444;
+      --success: #22c55e;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+      --radius-xl: 1.5rem;
+      --radius-lg: 1rem;
+      --radius-pill: 999px;
+      --transition-fast: 160ms ease-out;
+      --transition-med: 220ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-main);
+      background: radial-gradient(circle at top, #1f2937 0, transparent 55%),
+                  radial-gradient(circle at 10% 80%, #1d4ed8 0, transparent 50%),
+                  radial-gradient(circle at 90% 20%, #7c2d12 0, transparent 55%),
+                  linear-gradient(145deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 2rem 1.25rem;
+      color-scheme: dark;
+    }
+
+    .page-shell {
+      width: 100%;
+      max-width: 1120px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+      gap: 1.75rem;
+    }
+
+    @media (max-width: 900px) {
+      .page-shell {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-soft);
+      padding: 1.75rem 1.75rem 1.9rem;
+      backdrop-filter: blur(26px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.16), transparent 60%);
+      opacity: 0.5;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    header.app-header {
+      margin-bottom: 1.25rem;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .logo-pill {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 30% 10%, #f97316 0, #ea580c 45%, #f97316 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(248, 113, 22, 0.65);
+      flex-shrink: 0;
+    }
+
+    .logo-pill span {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #020617;
+    }
+
+    h1.app-title {
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .subtitle strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .pill-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: var(--text-muted);
+      margin-top: 0.85rem;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+    }
+
+    .pill-meta span {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Tabs */
+    .tabs {
+      margin-top: 1.5rem;
+      display: flex;
+      border-radius: var(--radius-pill);
+      padding: 0.18rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      position: relative;
+    }
+
+    .tab {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: color var(--transition-fast), transform var(--transition-fast);
+      position: relative;
+      z-index: 2;
+    }
+
+    .tab span.icon {
+      font-size: 1.05rem;
+    }
+
+    .tab.active {
+      color: #0f172a;
+      font-weight: 500;
+      transform: translateY(-0.5px);
+    }
+
+    .tab-indicator {
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      width: 50%;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      box-shadow: 0 12px 30px rgba(248, 113, 22, 0.55);
+      transition: transform var(--transition-med);
+      z-index: 1;
+    }
+
+    .tab-indicator.archive {
+      transform: translateX(100%);
+    }
+
+    /* Main content layout */
+    .content-section {
+      margin-top: 1.4rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .question-card {
+      border-radius: var(--radius-lg);
+      padding: 1.3rem 1.2rem 1.2rem;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.09), transparent 50%),
+                  rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.23);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.75);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+      gap: 1rem;
+    }
+
+    .question-meta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .question-day-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .question-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .question-meta-right {
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .difficulty-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.8);
+      margin-top: 0.25rem;
+    }
+
+    .difficulty-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .question-body {
+      margin-top: 0.85rem;
+      font-size: 0.94rem;
+      line-height: 1.6;
+      color: #e5e7eb;
+    }
+
+    .question-body p + p {
+      margin-top: 0.6rem;
+    }
+
+    .question-body code {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      font-size: 0.88rem;
+      padding: 0.08rem 0.3rem;
+      border-radius: 0.35rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .timer-strip {
+      margin-top: 1.1rem;
+      border-radius: 0.9rem;
+      padding: 0.7rem 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      background: radial-gradient(circle at left, rgba(248, 250, 252, 0.16), transparent 60%),
+                  rgba(8, 47, 73, 0.92);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    .timer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.05rem;
+    }
+
+    .timer-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(226, 232, 240, 0.8);
+    }
+
+    .timer-value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .timer-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .timer-chip {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .answer-section {
+      margin-top: 1.2rem;
+      border-top: 1px dashed rgba(148, 163, 184, 0.5);
+      padding-top: 1rem;
+    }
+
+    .answer-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .answer-label {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .answer-label-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+    }
+
+    .reveal-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 0.45rem 0.95rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.28), transparent 60%),
+                  linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #0f172a;
+      box-shadow: 0 14px 32px rgba(248, 113, 22, 0.7);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .reveal-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(248, 113, 22, 0.9);
+      filter: brightness(1.03);
+    }
+
+    .reveal-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+      box-shadow: none;
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .answer-body {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(226, 232, 240, 0.96);
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 0.8rem;
+      padding: 0.85rem 0.9rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .answer-body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(148, 163, 184, 0.14), transparent 55%);
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .answer-body-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .answer-body code {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+      font-size: 0.88rem;
+    }
+
+    .answer-hidden-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .blurred {
+      filter: blur(5px);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    /* Archive */
+    .archive-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .archive-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .archive-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .archive-list {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 380px;
+      overflow: auto;
+      padding-right: 0.35rem;
+    }
+
+    .archive-item {
+      border-radius: 0.9rem;
+      padding: 0.65rem 0.75rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      transition: background var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .archive-item:hover {
+      background: rgba(30, 64, 175, 0.5);
+      transform: translateY(-1px);
+      border-color: rgba(59, 130, 246, 0.95);
+    }
+
+    .archive-item-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.12rem;
+    }
+
+    .archive-item-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .archive-item-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .archive-item-day-tag {
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .archive-arrow {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .archive-empty {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Side card */
+    .side-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .summary-block {
+      border-radius: var(--radius-xl);
+      padding: 1.2rem 1.3rem;
+      background: radial-gradient(circle at top right, rgba(248, 250, 252, 0.2), transparent 55%),
+                  rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .summary-block::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at bottom left, rgba(37, 99, 235, 0.35), transparent 55%);
+      opacity: 0.7;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .summary-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .summary-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+      gap: 0.9rem;
+    }
+
+    .summary-title {
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.5rem;
+    }
+
+    .stat {
+      border-radius: 0.8rem;
+      padding: 0.55rem 0.6rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.05rem;
+    }
+
+    .stat-value {
+      font-variant-numeric: tabular-nums;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .stat-hint {
+      font-size: 0.72rem;
+      color: rgba(148, 163, 184, 0.9);
+      margin-top: 0.15rem;
+    }
+
+    .hint-block {
+      border-radius: var(--radius-xl);
+      padding: 1.1rem 1.15rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hint-block::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), transparent 55%);
+      opacity: 0.8;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .hint-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hint-title {
+      font-size: 0.92rem;
+      font-weight: 500;
+      margin-bottom: 0.45rem;
+    }
+
+    .hint-text {
+      font-size: 0.85rem;
+      color: rgba(226, 232, 240, 0.9);
+      line-height: 1.6;
+    }
+
+    .hint-text ul {
+      margin-top: 0.4rem;
+      padding-left: 1rem;
+    }
+
+    .hint-text li {
+      margin-bottom: 0.2rem;
+    }
+
+    .chip-row {
+      margin-top: 0.55rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .chip {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .empty-state {
+      padding: 1rem 1.1rem;
+      border-radius: 0.95rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+
+    .empty-state-icon {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-top: 0.1rem;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 1.4rem 1.25rem 1.5rem;
+      }
+
+      .question-body {
+        font-size: 0.9rem;
+      }
+
+      .timer-strip {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .archive-list {
+        max-height: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <!-- Left: Main interactive area -->
+    <section class="card">
+      <div class="card-inner">
+        <header class="app-header">
+          <div class="title-row">
+            <div class="logo-pill"><span>ECA</span></div>
+            <div>
+              <h1 class="app-title">Advent Calendar · Engineering Critical Assessment</h1>
+              <p class="subtitle">
+                One focused question per day to sharpen your <strong>ECA</strong> instincts.
+              </p>
+            </div>
+          </div>
+          <div class="pill-meta">
+            <span class="pill-dot"></span>
+            <span id="today-label">Today</span>
+          </div>
+        </header>
+
+        <!-- Tabs -->
+        <div class="tabs" aria-label="Calendar views">
+          <div class="tab-indicator" id="tab-indicator"></div>
+          <button class="tab active" id="tab-today" type="button" data-tab="today">
+            <span class="icon">🎯</span>
+            <span>Today&apos;s challenge</span>
+          </button>
+          <button class="tab" id="tab-archive" type="button" data-tab="archive">
+            <span class="icon">📚</span>
+            <span>Archive</span>
+          </button>
+        </div>
+
+        <!-- Today content -->
+        <section id="section-today" class="content-section" aria-labelledby="tab-today">
+          <div id="today-container"></div>
+        </section>
+
+        <!-- Archive content -->
+        <section id="section-archive" class="content-section hidden" aria-labelledby="tab-archive">
+          <div class="archive-header">
+            <div>
+              <h2 class="archive-title">Previous questions</h2>
+              <p class="archive-note">Only questions whose date has passed are visible in this list.</p>
+            </div>
+            <div class="badge">
+              <span class="badge-dot"></span>
+              <span id="archive-count">0 unlocked</span>
+            </div>
+          </div>
+          <div id="archive-list" class="archive-list"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Right: summary & guidance -->
+    <aside class="side-card">
+      <section class="summary-block">
+        <div class="summary-inner">
+          <div class="summary-header">
+            <h2 class="summary-title">Calendar status</h2>
+            <span class="chip">Designed for ECA engineers</span>
+          </div>
+          <p class="archive-note">
+            Use these questions to cross-pollinate experience across sites and disciplines.
+          </p>
+          <div class="summary-grid" id="summary-grid">
+            <div class="stat">
+              <div class="stat-label">Unlocked</div>
+              <div class="stat-value" id="stat-unlocked">0</div>
+              <div class="stat-hint">Questions with answers available after 10 minutes.</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Today</div>
+              <div class="stat-value" id="stat-today">0</div>
+              <div class="stat-hint">Question mapped to the current date.</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Upcoming</div>
+              <div class="stat-value" id="stat-upcoming">0</div>
+              <div class="stat-hint">Hidden until their calendar date.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="hint-block">
+        <div class="hint-inner">
+          <h2 class="hint-title">Facilitation tips</h2>
+          <div class="hint-text">
+            <ul>
+              <li>Let the team discuss before the answer unlocks.</li>
+              <li>Ask &ldquo;what would you check?&rdquo; and &ldquo;what data would you need?&rdquo;.</li>
+              <li>Capture good examples to feed back into your ECA guidance.</li>
+            </ul>
+          </div>
+          <div class="chip-row">
+            <span class="chip">10-minute challenge</span>
+            <span class="chip">Knowledge sharing</span>
+            <span class="chip">Low-friction training</span>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <!-- Embedded question set as JSON. Replace / extend with your own content. -->
+  <script id="questions-data" type="application/json">
+  [
+    {
+      "id": 1,
+      "unlockDate": "2025-12-09",
+      "title": "Stress concentration for an elliptic whole",
+      "difficulty": "Difficulty A",
+      "question": "A thick, infinitely wide and long elastic plate is subjected to a uniform tensile stress. The plate contains a through-thickness elliptical hole. <p>(1) Give the formula for the stress concentration factor Kt at the ends of the major axis and the minor ellipse. <p> (2) Using this result, determine the value of Kt for the special case of a circular hole..",
+      "answer": "For an elliptical hole in an infinite plate under tension, the stress concentration factor is: <p> Kt = 1 + 2(a/b) <p> For a circular hole, a = b, so: <p>Kt = 1 + 2(a/a) = 3"
+    },
+    {
+      "id": 2,
+      "unlockDate": "2025-12-10",
+      "title": "TBD",
+      "difficulty": "TBD",
+      "question": "TBD",
+      "answer": "TBD."
+    }
+  ]
+  </script>
+
+  <script>
+    // -------- Utility functions --------
+
+    function formatDateLabel(date) {
+      const opts = { weekday: 'short', day: '2-digit', month: 'short' };
+      return date.toLocaleDateString(undefined, opts);
+    }
+
+    function formatTimeRemaining(seconds) {
+      const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const sec = String(seconds % 60).padStart(2, '0');
+      return `${min}:${sec}`;
+    }
+
+    function parseISODate(dateStr) {
+      // Ensure no timezone shift: treat as local date at midnight
+      const [year, month, day] = dateStr.split('-').map(Number);
+      return new Date(year, month - 1, day);
+    }
+
+    function stripTime(date) {
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+
+    // -------- Timer management --------
+
+    function attachTimer(container, options) {
+      const { durationSeconds, onFinished } = options;
+      const timerValueEl = container.querySelector('[data-role="timer-value"]');
+      const timerNoteEl = container.querySelector('[data-role="timer-note"]');
+
+      let remaining = durationSeconds;
+      timerValueEl.textContent = formatTimeRemaining(remaining);
+
+      const intervalId = setInterval(() => {
+        remaining -= 1;
+        if (remaining <= 0) {
+          clearInterval(intervalId);
+          timerValueEl.textContent = '00:00';
+          if (timerNoteEl) {
+            timerNoteEl.textContent = 'Time is up. Discuss, then reveal the answer.';
+          }
+          if (typeof onFinished === 'function') {
+            onFinished();
+          }
+          return;
+        }
+        timerValueEl.textContent = formatTimeRemaining(remaining);
+      }, 1000);
+    }
+
+    // -------- Question rendering --------
+
+    function createQuestionCard(question, options) {
+      const { isToday } = options;
+      const unlockDate = parseISODate(question.unlockDate);
+      const dayLabel = `Day ${unlockDate.getDate()}`;
+
+      const wrapper = document.createElement('article');
+      wrapper.className = 'question-card';
+      wrapper.setAttribute('data-question-id', String(question.id));
+
+      wrapper.innerHTML = `
+        <div class="question-meta">
+          <div class="question-meta-left">
+            <span class="question-day-label">${dayLabel}${isToday ? ' · Today\'s focus' : ''}</span>
+            <h2 class="question-title">${question.title}</h2>
+          </div>
+          <div class="question-meta-right">
+            <div>${formatDateLabel(unlockDate)}</div>
+            <div class="difficulty-pill">
+              <span class="difficulty-dot"></span>
+              <span>${question.difficulty || 'Core'}</span>
+            </div>
+          </div>
+        </div>
+        <div class="question-body">
+          <p>${question.question}</p>
+        </div>
+        <div class="timer-strip" data-role="timer-strip">
+          <div class="timer-left">
+            <span class="timer-label">Countdown</span>
+            <span class="timer-value" data-role="timer-value">10:00</span>
+            <span class="timer-note" data-role="timer-note">The answer unlocks when the timer reaches zero.</span>
+          </div>
+          <div>
+            <div class="timer-chip">10-minute ECA challenge</div>
+          </div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-header-row">
+            <div class="answer-label">
+              <span class="answer-label-icon">✔</span>
+              <span>Model answer</span>
+            </div>
+            <button class="reveal-btn hidden" type="button" data-role="reveal-btn">
+              <span>Reveal answer</span>
+              <span>👁</span>
+            </button>
+          </div>
+          <div class="answer-body blurred" data-role="answer-body">
+            <div class="answer-body-inner">
+              <p>${question.answer}</p>
+            </div>
+          </div>
+          <p class="answer-hidden-note" data-role="answer-note">
+            🔒 Hidden until the 10-minute discussion window has elapsed.
+          </p>
+        </div>
+      `;
+
+      const timerStrip = wrapper.querySelector('[data-role="timer-strip"]');
+      const revealBtn = wrapper.querySelector('[data-role="reveal-btn"]');
+      const answerBody = wrapper.querySelector('[data-role="answer-body"]');
+      const answerNote = wrapper.querySelector('[data-role="answer-note"]');
+
+      // Attach timer logic
+      attachTimer(timerStrip, {
+        durationSeconds: 60,
+        onFinished() {
+          revealBtn.classList.remove('hidden');
+          if (answerNote) {
+            answerNote.textContent = 'You can now reveal the suggested answer and compare it with the team\'s reasoning.';
+          }
+        }
+      });
+
+      // Reveal logic
+      revealBtn.addEventListener('click', () => {
+        answerBody.classList.remove('blurred');
+        revealBtn.disabled = true;
+        revealBtn.innerHTML = '<span>Answer revealed</span><span>✅</span>';
+      });
+
+      return wrapper;
+    }
+
+    function renderTodayQuestion(questions, todayDate) {
+      const container = document.getElementById('today-container');
+      container.innerHTML = '';
+
+      const todayMidnight = stripTime(todayDate);
+      const yyyy = todayMidnight.getFullYear();
+      const mm = String(todayMidnight.getMonth() + 1).padStart(2, '0');
+      const dd = String(todayMidnight.getDate()).padStart(2, '0');
+      const todayStr = `${yyyy}-${mm}-${dd}`;
+
+      const todayQuestion = questions.find(q => q.unlockDate === todayStr);
+
+      const todayLabel = document.getElementById('today-label');
+      if (todayQuestion) {
+        todayLabel.textContent = `Today · ${formatDateLabel(todayMidnight)}`;
+        const card = createQuestionCard(todayQuestion, { isToday: true });
+        container.appendChild(card);
+      } else {
+        todayLabel.textContent = `Today · ${formatDateLabel(todayMidnight)}`;
+        const empty = document.createElement('div');
+        empty.className = 'empty-state';
+        empty.innerHTML = `
+          <span class="empty-state-icon">✨</span>
+          <div>
+            <strong>No question is configured for today.</strong><br>
+            <span>Check that your <code>unlockDate</code> entries in the embedded JSON include ${todayStr} or adjust the calendar to your preferred campaign period.</span>
+          </div>
+        `;
+        container.appendChild(empty);
+      }
+
+      return todayQuestion;
+    }
+
+    function renderArchiveList(questions, todayDate) {
+      const archiveList = document.getElementById('archive-list');
+      archiveList.innerHTML = '';
+
+      const todayMidnight = stripTime(todayDate);
+
+      const pastQuestions = questions
+        .filter(q => parseISODate(q.unlockDate) < todayMidnight)
+        .sort((a, b) => parseISODate(a.unlockDate) - parseISODate(b.unlockDate));
+
+      const archiveCountEl = document.getElementById('archive-count');
+      archiveCountEl.textContent = `${pastQuestions.length} unlocked`;
+
+      if (pastQuestions.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'archive-empty';
+        empty.textContent = 'No past questions yet. As the calendar progresses, they will appear here with the same 10-minute challenge format.';
+        archiveList.appendChild(empty);
+        return pastQuestions;
+      }
+
+      pastQuestions.forEach(q => {
+        const unlockDate = parseISODate(q.unlockDate);
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'archive-item';
+        item.setAttribute('data-question-id', String(q.id));
+
+        item.innerHTML = `
+          <div class="archive-item-main">
+            <div class="archive-item-title">${q.title}</div>
+            <div class="archive-item-meta">
+              <span>${formatDateLabel(unlockDate)}</span>
+              <span class="archive-item-day-tag">Day ${unlockDate.getDate()}</span>
+            </div>
+          </div>
+          <div class="archive-arrow">›</div>
+        `;
+
+        item.addEventListener('click', () => {
+          const todayContainer = document.getElementById('today-container');
+          todayContainer.innerHTML = '';
+          const card = createQuestionCard(q, { isToday: false });
+          todayContainer.appendChild(card);
+
+          // Switch to the Today tab view but keep the context that this is from the archive
+          activateTab('today');
+        });
+
+        archiveList.appendChild(item);
+      });
+
+      return pastQuestions;
+    }
+
+    function updateStats(questions, todayDate, todayQuestion, pastQuestions) {
+      const todayMidnight = stripTime(todayDate);
+
+      const unlockedCount = questions.filter(q => parseISODate(q.unlockDate) <= todayMidnight).length;
+      const upcomingCount = questions.length - unlockedCount;
+
+      document.getElementById('stat-unlocked').textContent = String(unlockedCount);
+      document.getElementById('stat-today').textContent = todayQuestion ? '1' : '0';
+      document.getElementById('stat-upcoming').textContent = String(Math.max(upcomingCount, 0));
+    }
+
+    // -------- Tab interactions --------
+
+    function activateTab(tabKey) {
+      const tabToday = document.getElementById('tab-today');
+      const tabArchive = document.getElementById('tab-archive');
+      const sectionToday = document.getElementById('section-today');
+      const sectionArchive = document.getElementById('section-archive');
+      const indicator = document.getElementById('tab-indicator');
+
+      if (tabKey === 'today') {
+        tabToday.classList.add('active');
+        tabArchive.classList.remove('active');
+        sectionToday.classList.remove('hidden');
+        sectionArchive.classList.add('hidden');
+        indicator.classList.remove('archive');
+      } else {
+        tabArchive.classList.add('active');
+        tabToday.classList.remove('active');
+        sectionArchive.classList.remove('hidden');
+        sectionToday.classList.add('hidden');
+        indicator.classList.add('archive');
+      }
+    }
+
+    function setupTabs() {
+      document.getElementById('tab-today').addEventListener('click', () => activateTab('today'));
+      document.getElementById('tab-archive').addEventListener('click', () => activateTab('archive'));
+    }
+
+    // -------- Bootstrap --------
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Parse questions JSON
+      const rawJson = document.getElementById('questions-data').textContent.trim();
+      let questions = [];
+      try {
+        questions = JSON.parse(rawJson);
+      } catch (err) {
+        console.error('Failed to parse questions JSON', err);
+      }
+
+      // Guard against empty set
+      if (!Array.isArray(questions)) {
+        questions = [];
+      }
+
+      const today = new Date();
+
+      setupTabs();
+      const todayQuestion = renderTodayQuestion(questions, today);
+      const pastQuestions = renderArchiveList(questions, today);
+      updateStats(questions, today, todayQuestion, pastQuestions);
+    });
+  </script>
+</body>
+</html>
