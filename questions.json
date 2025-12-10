@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "unlockDate": "2025-12-09",
+    "title": "Stress concentration for an elliptic hole",
+    "difficulty": "Difficulty A",
+    "question": "A thick, infinitely wide and long elastic plate is subjected to a uniform tensile stress. The plate contains a through-thickness elliptical hole.\n\n(1) Give the formula for the stress concentration factor Kt at the ends of the major axis and the minor ellipse.\n(2) Using this result, determine the value of Kt for the special case of a circular hole.",
+    "answer": "For an elliptical hole in an infinite plate under tension, the stress concentration factor at the end of the major axis is: Kt = 1 + 2(a/b).\n\nFor a circular hole, a = b, so:\nKt = 1 + 2(a/a) = 3."
+  },
+  {
+    "id": 2,
+    "unlockDate": "2025-12-10",
+    "title": "TBD",
+    "difficulty": "TBD",
+    "question": "TBD",
+    "answer": "TBD."
+  }
+]
