@@ -849,7 +849,7 @@
             </ul>
           </div>
           <div class="chip-row">
-            <span class="chip">10-minute challenge</span>
+            <span class="chip">5-minute challenge</span>
             <span class="chip">Knowledge sharing</span>
             <span class="chip">Low-friction training</span>
           </div>
@@ -966,7 +966,7 @@
             <span class="timer-note" data-role="timer-note">The answer unlocks when the timer reaches zero.</span>
           </div>
           <div>
-            <div class="timer-chip">10-minute ECA challenge</div>
+            <div class="timer-chip">5-minute ECA challenge</div>
           </div>
         </div>
         <div class="answer-section">
@@ -986,7 +986,7 @@
             </div>
           </div>
           <p class="answer-hidden-note" data-role="answer-note">
-            🔒 Hidden until the 10-minute discussion window has elapsed.
+            🔒 Hidden until the 5-minute discussion window has elapsed.
           </p>
         </div>
       `;
@@ -998,7 +998,7 @@
 
       // Attach timer logic
       attachTimer(timerStrip, {
-        durationSeconds: 60,
+        durationSeconds: 300,
         onFinished() {
           revealBtn.classList.remove('hidden');
           if (answerNote) {
@@ -1067,7 +1067,7 @@
       if (pastQuestions.length === 0) {
         const empty = document.createElement('div');
         empty.className = 'archive-empty';
-        empty.textContent = 'No past questions yet. As the calendar progresses, they will appear here with the same 10-minute challenge format.';
+        empty.textContent = 'No past questions yet. As the calendar progresses, they will appear here with the same 5-minute challenge format.';
         archiveList.appendChild(empty);
         return pastQuestions;
       }
