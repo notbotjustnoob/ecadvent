@@ -866,8 +866,8 @@
       "unlockDate": "2025-12-09",
       "title": "Stress concentration for an elliptic whole",
       "difficulty": "Difficulty A",
-      "question": "A thick, infinitely wide and long elastic plate is subjected to a uniform tensile stress. The plate contains a through-thickness elliptical hole. <p>(1) Give the formula for the stress concentration factor Kt at the ends of the major axis and the minor ellipse. <p> (2) Using this result, determine the value of Kt for the special case of a circular hole..",
-      "answer": "For an elliptical hole in an infinite plate under tension, the stress concentration factor is: <p> Kt = 1 + 2(a/b) <p> For a circular hole, a = b, so: <p>Kt = 1 + 2(a/a) = 3"
+      "question": "A thick, infinitely wide and long elastic plate is subjected to a uniform tensile stress. The plate contains a through-thickness elliptical hole. (1)Give the formula for the stress concentration factor Kt at the ends of the major axis and the minor ellipse. (2) Using this result, determine the value of Kt for the special case of a circular hole..",
+      "answer": "An Engineering Critical Assessment (ECA) is a fracture-mechanics-based fitness-for-service approach used to define flaw acceptance criteria specific to a component, loading, and material system. It is preferred when: (1) the component is highly stressed or safety-critical such that workmanship criteria are overly conservative, (2) there is a need to justify deviation from a code workmanship limit using quantified risk/fitness arguments, (3) inspection data show flaws that exceed workmanship criteria but can be demonstrated as tolerable for the design life, or (4) project constraints make full repair impractical and a more nuanced decision is required."
     },
     {
       "id": 2,
@@ -998,7 +998,7 @@
 
       // Attach timer logic
       attachTimer(timerStrip, {
-        durationSeconds: 60,
+        durationSeconds: 10,
         onFinished() {
           revealBtn.classList.remove('hidden');
           if (answerNote) {
