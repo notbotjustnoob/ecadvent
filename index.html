@@ -866,16 +866,16 @@
       "unlockDate": "2025-12-09",
       "title": "Stress concentration for an elliptic whole",
       "difficulty": "Difficulty A",
-      "question": "A thick, infinitely wide and long elastic plate is subjected to a uniform tensile stress. The plate contains a through-thickness elliptical hole. (1)Give the formula for the stress concentration factor Kt at the ends of the major axis and the minor ellipse. (2) Using this result, determine the value of Kt for the special case of a circular hole..",
-      "answer": "An Engineering Critical Assessment (ECA) is a fracture-mechanics-based fitness-for-service approach used to define flaw acceptance criteria specific to a component, loading, and material system. It is preferred when: (1) the component is highly stressed or safety-critical such that workmanship criteria are overly conservative, (2) there is a need to justify deviation from a code workmanship limit using quantified risk/fitness arguments, (3) inspection data show flaws that exceed workmanship criteria but can be demonstrated as tolerable for the design life, or (4) project constraints make full repair impractical and a more nuanced decision is required."
+      "question": "A thick, infinitely wide and long elastic plate is subjected to a uniform tensile stress. The plate contains a through-thickness elliptical hole. <p>(1) Give the formula for the stress concentration factor Kt at the ends of the major axis and the minor ellipse. <p> (2) Using this result, determine the value of Kt for the special case of a circular hole..",
+      "answer": "For an elliptical hole in an infinite plate under tension, the stress concentration factor is: <p> Kt = 1 + 2(a/b) <p> For a circular hole, a = b, so: <p>Kt = 1 + 2(a/a) = 3"
     },
     {
       "id": 2,
       "unlockDate": "2025-12-10",
-      "title": "TBD",
-      "difficulty": "TBD",
-      "question": "TBD",
-      "answer": "TBD."
+      "title": "Probabilistic ECA - Part 1",
+      "difficulty": "Difficulty A",
+      "question": "(1) Define probabilistic ECA. <p> List 3 types of possible applications of Probabilistic ECA. <p> (2) Define Design of experiments (DoE). <p> List 2 types of possible applications  ",
+      "answer": "Probabilistic ECA is a fracture assessment method where key inputs such as flaw size, material properties, and loading are treated as statistical variables, producing a failure probability.<p>Applications:<p>1. Produce ECA-based acceptance criteria by evaluating the probability of failure (for a defined set of project inputs) and comparing it to standardized target failure probability.<p>2. Define a parameter based on a target reliability/ probability of failure (e.g., DFF in RECIF).<p>3. Support deterministic ECA by quantifying the risk behind a choice of a specif parameter.<p><p>DoE is a structured statistical approach used to plan and analyze tests to understand how multiple factors influence a response while minimizing the number of experiments.<p>Applications:<p>1. Sensitivity studies and possibility frontiers.<p>2. Model definition, calibration and validation."
     }
   ]
   </script>
@@ -998,7 +998,7 @@
 
       // Attach timer logic
       attachTimer(timerStrip, {
-        durationSeconds: 300,
+        durationSeconds: 60,
         onFinished() {
           revealBtn.classList.remove('hidden');
           if (answerNote) {
