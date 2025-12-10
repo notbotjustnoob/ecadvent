@@ -10,9 +10,19 @@
   {
     "id": 2,
     "unlockDate": "2025-12-10",
+    "title": "Probabilistic ECA - Part 1",
+    "difficulty": "Difficulty A",
+    "question": "(1) Define probabilistic ECA. <p> List 3 types of possible applications of Probabilistic ECA. <p> (2) Define Design of experiments (DoE). <p> List 2 types of possible applications  ",
+    "answer": "Probabilistic ECA is a fracture assessment method where key inputs such as flaw size, material properties, and loading are treated as statistical variables, producing a failure probability.<p>Applications:<p>1. Produce ECA-based acceptance criteria by evaluating the probability of failure (for a defined set of project inputs) and comparing it to standardized target failure probability.<p>2. Define a parameter based on a target reliability/ probability of failure (e.g., DFF in RECIF).<p>3. Support deterministic ECA by quantifying the risk behind a choice of a specif parameter.<p><p>DoE is a structured statistical approach used to plan and analyze tests to understand how multiple factors influence a response while minimizing the number of experiments.<p>Applications:<p>1. Sensitivity studies and possibility frontiers.<p>2. Model definition, calibration and validation."
+
+  },
+  {
+    "id": 2,
+    "unlockDate": "2025-12-11",
     "title": "TBD",
     "difficulty": "TBD",
     "question": "TBD",
     "answer": "TBD."
   }
 ]
+
