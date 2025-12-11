@@ -872,7 +872,7 @@
     {
       "id": 2,
       "unlockDate": "2025-12-10",
-      "title": "Probabilistic ECA - Part 1",
+      "title": "Probabilistic ECA Part 1 - Initiation",
       "difficulty": "Difficulty A",
       "question": "(1) Define probabilistic ECA. <p> List 3 types of possible applications of Probabilistic ECA. <p> (2) Define Design of experiments (DoE). <p> List 2 types of possible applications  ",
       "answer": "Probabilistic ECA is a fracture assessment method where key inputs such as flaw size, material properties, and loading are treated as statistical variables, producing a failure probability.<p>Applications:<p>1. Produce ECA-based acceptance criteria by evaluating the probability of failure (for a defined set of project inputs) and comparing it to standardized target failure probability.<p>2. Define a parameter based on a target reliability/ probability of failure (e.g., DFF in RECIF).<p>3. Support deterministic ECA by quantifying the risk behind a choice of a specif parameter.<p><p>DoE is a structured statistical approach used to plan and analyze tests to understand how multiple factors influence a response while minimizing the number of experiments.<p>Applications:<p>1. Sensitivity studies and possibility frontiers.<p>2. Model definition, calibration and validation."
@@ -880,7 +880,7 @@
         {
       "id": 3,
       "unlockDate": "2025-12-11",
-      "title": "Disruption of normality",
+      "title": "Probabilistic ECA Part 2 - Disruption of normality",
       "difficulty": "Difficulty S",
       "question": "What's the consequence of having a cut-off value in a distribution used for probabilistic ECA",
       "answer": "1. Bias in failure probability: <p> Truncation removes part of the tail where low-probability, high-consequence values reside (for example, extreme flaw sizes, toughness lows, or load highs). This systematically underestimates or overestimates the probability of failure depending on which side is truncated. <p> 2. Loss of tail behavior: <p> Probabilistic ECA is tail-dominated <p> Failure often results from rare combinations of extreme input parameters. A cut-off suppresses these extremes, masking potential unstable fracture scenarios and artificially narrowing the predicted distribution of failure metrics. <p> 3. Artificial reduction in variance. Truncation reduces the spread of sampled inputs. This produces overly optimistic structural reliability and can invalidate sensitivity rankings since parameters that drive tail outcomes appear less influential. <p> 4. Distortion of fitted reliability indices: <p> When distributions are bounded, FORM/SORM approximations and Monte Carlo estimators no longer reflect the actual physics-driven uncertainty. Reliability indices shift upward, suggesting higher safety than is warranted. <p> 5. Misrepresentation of epistemic vs aleatory uncertainty: <p> A cut-off conflates physical limits with analyst assumptions. If the cut-off reflects analyst convenience rather than a true physical bound, the assessed reliability becomes assumption-controlled rather than data-controlled. <p> In such case other methods under Monte Carlo family should be used (Metropolis, Reject/ accept, etc."
